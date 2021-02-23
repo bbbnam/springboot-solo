@@ -24,7 +24,10 @@ public class IndexController {
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
         if(user != null) {
-            model.addAttribute("userName", user.getName());
+            model.addAttribute("socialUserName", user.getName());
+            //윈도우 OS(windows10) 의 경우 userName이 환경변수로 컴퓨터 이름을 지칭하게끔 처리되어 있는데,
+            //mustache가 이를 인식하여 컴퓨터 이름이 나옴;; 하여 다른것으로 변경
+            //참고 : https://github.com/jojoldu/freelec-springboot2-webservice/issues/293
         }
         return "index";
     }
