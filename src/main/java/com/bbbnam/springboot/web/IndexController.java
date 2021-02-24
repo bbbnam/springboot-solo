@@ -1,5 +1,6 @@
 package com.bbbnam.springboot.web;
 
+import com.bbbnam.springboot.config.auth.LoginUser;
 import com.bbbnam.springboot.config.auth.dto.SessionUser;
 import com.bbbnam.springboot.domain.posts.PostsResponseDto;
 import com.bbbnam.springboot.service.posts.PostsService;
@@ -19,9 +20,11 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        /*어노테이션 기반으로 변경
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");*/
 
         if(user != null) {
             model.addAttribute("socialUserName", user.getName());
