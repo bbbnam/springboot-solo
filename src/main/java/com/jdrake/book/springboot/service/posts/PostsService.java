@@ -2,6 +2,7 @@ package com.jdrake.book.springboot.service.posts;
 
 import com.jdrake.book.springboot.domain.posts.Posts;
 import com.jdrake.book.springboot.domain.posts.PostsRepository;
+import com.jdrake.book.springboot.web.dto.PostsResponseDto;
 import com.jdrake.book.springboot.web.dto.PostsSaveRequestDto;
 import com.jdrake.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,10 @@ public class PostsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id =" + id));
         posts.update(requestDto.getTitle(), requestDto.getContent());
         return id;
+    }
+
+    public PostsResponseDto findById(Long id) {
+        return new PostsResponseDto(postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id =" + id)));
     }
 }
